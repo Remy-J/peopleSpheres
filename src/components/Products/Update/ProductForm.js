@@ -118,7 +118,7 @@ const ProductForm = (props) => {
                     Featured
                 </Label>
             </FormGroup>
-            <Button>Submit</Button>
+            <Button>{!props.isLoading ? 'Submit' : 'Loading...'}</Button>
         </Form>
     );
 }
@@ -127,6 +127,7 @@ ProductForm.propTypes = {
     product: PropTypes.object,
     categories: PropTypes.array.isRequired,
     onSave: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool,
 };
 
 export default ProductForm;

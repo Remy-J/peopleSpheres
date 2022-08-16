@@ -7,14 +7,14 @@ import {createProductForm} from '../../../actions/products';
 
 class AddFormContainer extends Component {
     render() {
-        const {categories, dispatch} = this.props;
-
+        const {categories, onSave, isLoading} = this.props;
         return (
             <>
                 <Link to='/'>Home</Link>
                 <ProductForm
-                    onSave={(data) => {return;}}
+                    onSave={onSave}
                     categories={categories}
+                    isLoading={isLoading}
                 />
             </>
         );
@@ -28,7 +28,13 @@ AddFormContainer.propTypes = {
 const mapStateToProps = (state) => {
     return {
         categories: state.categories,
+        isLoading: state.global.loading
     }
 };
 
-export default connect(mapStateToProps)(AddFormContainer);
+const mapDispatchToProps = dispatch => ({
+    onSave: (data) => dispatch(createProductForm(data))
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddFormContainer);

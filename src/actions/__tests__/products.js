@@ -1,4 +1,4 @@
-import {CREATE_PRODUCT, createProductForm, UPDATE_PRODUCT, updateProductForm} from '../products';
+import {CREATE_PRODUCT, createProductForm, UPDATE_PRODUCT, updateProductForm, SET_LOADING_CREATE_PRODUCT} from '../products';
 
 describe('products', () => {
 	let dispatch;
@@ -34,13 +34,30 @@ describe('products', () => {
 			history.push = jest.fn();
 		})
 
-		it('create a product', () => {
-			const data = {name: 'iphone'};
+		it('create a product without errors', done => {
+			const data = {name: 'iphone', categories: ['phone']};
 			createProductForm(data)(dispatch, undefined, deps);
+			setTimeout(() => {expect(dispatch).toHaveBeenCalled();
+				expect(dispatch.mock.calls[0][0].type).toBe(SET_LOADING_CREATE_PRODUCT);
+				expect(dispatch.mock.calls[0][0].loading).toBeTruthy();
+				expect(dispatch.mock.calls[1][0].type).toBe(CREATE_PRODUCT);
+				expect(dispatch.mock.calls[1][0].data).toMatchObject(data);
+				expect(dispatch.mock.calls[2][0].type).toBe(SET_LOADING_CREATE_PRODUCT);
+				expect(dispatch.mock.calls[2][0].loading).toBeFalsy();
+				done()
+			}, 2200)
+		})
 
-			expect(dispatch).toHaveBeenCalled();
-			expect(dispatch.mock.calls[0][0].type).toBe(CREATE_PRODUCT);
-			expect(dispatch.mock.calls[0][0].data).toMatchObject(data);
+		it('create a product with errors', done => {
+			const data = {name: 'iphone', categories: []};
+			createProductForm(data)(dispatch, undefined, deps);
+			setTimeout(() => {expect(dispatch).toHaveBeenCalled();
+				expect(dispatch.mock.calls[0][0].type).toBe(SET_LOADING_CREATE_PRODUCT);
+				expect(dispatch.mock.calls[0][0].loading).toBeTruthy();
+				expect(dispatch.mock.calls[1][0].type).toBe(SET_LOADING_CREATE_PRODUCT);
+				expect(dispatch.mock.calls[1][0].loading).toBeFalsy();
+				done()
+			}, 2200)
 		})
 
 		it('redirects to home page', () => {
