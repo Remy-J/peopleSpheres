@@ -47,7 +47,7 @@ export const fetchProducts = () => dispatch => {
 export const updateProductForm = (id, data) => (dispatch, getState, {history}) => {
   dispatch(setLoadingCreateProduct(true))
   Promise.resolve().then(() => {
-        if(!isNameValid(data.name) || !isCategoriesValid(data.categories) || !isExpirationDateValid(data.minExpirationDate, data.expirationDate)){
+        if(!isNameValid(data.name) || !isCategoriesValid(data.categories) || !isExpirationDateValid(data.receiptDate, data.expirationDate)){
           throw new Error('Thank you for correcting the fields in error.');
         } else {
           setTimeout(() => {
@@ -67,7 +67,7 @@ export const updateProductForm = (id, data) => (dispatch, getState, {history}) =
 export const createProductForm = (data) => (dispatch, getState, {history}) => {
   dispatch(setLoadingCreateProduct(true))
    Promise.resolve().then(() => {
-        if(!isNameValid(data.name) || !isCategoriesValid(data.categories) || !isExpirationDateValid(data.minExpirationDate, data.receiptDate)){
+        if(!isNameValid(data.name) || !isCategoriesValid(data.categories) || !isExpirationDateValid(data.receiptDate, data.expirationDate)){
           throw new Error('Thank you for correcting the fields in error.');
         } else {
           setTimeout(() => {
