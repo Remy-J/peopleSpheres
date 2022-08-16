@@ -27,6 +27,7 @@ describe('products', () => {
 		})
 
 		it('update a product with errors', done => {
+			window.alert = () => {}; // fix error Not implemented: window.alert
 			const data = {name: 'iphone', categories: []};
 			updateProductForm('1', data)(dispatch, undefined, deps);
 			setTimeout(() => {
@@ -72,6 +73,7 @@ describe('products', () => {
 
 		it('create a product with errors', done => {
 			const data = {name: 'iphone', categories: []};
+			window.alert = () => {}; // fix error Not implemented: window.alert
 			createProductForm(data)(dispatch, undefined, deps);
 			setTimeout(() => {
 				expect(dispatch).toHaveBeenCalled();
