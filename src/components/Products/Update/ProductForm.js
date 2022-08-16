@@ -13,7 +13,7 @@ const ProductForm = (props) => {
     const [itemsInStock, setItemsInStock] = useState(product.itemsInStock || 0);
     const [receiptDate, setReceiptDate] = useState(product.receiptDate || '');
     const [expirationDate, setExpirationDate] = useState(product.expirationDate || '');
-    const [featured, setFeatured] = useState(product.featured);
+    const [featured, setFeatured] = useState(product.featured || false);
 
     const onSubmit = (e) => {
         e.preventDefault();

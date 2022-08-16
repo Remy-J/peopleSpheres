@@ -35,7 +35,7 @@ const mapStateToProps = (state) => {
       categories
     };
   });
-
+console.log(products)
   return {
     products,
   }
