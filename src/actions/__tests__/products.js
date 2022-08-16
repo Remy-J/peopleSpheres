@@ -11,20 +11,41 @@ describe('products', () => {
 			history.push = jest.fn();
 		})
 
-		it('update a product', () => {
-			const data = {name: 'iphone'};
+		it('update a product without errors', done => {
+			const data = {name: 'iphone', categories: ['phone']};
 			updateProductForm('1', data)(dispatch, undefined, deps);
-
-			expect(dispatch).toHaveBeenCalled();
-			expect(dispatch.mock.calls[0][0].type).toBe(UPDATE_PRODUCT);
-			expect(dispatch.mock.calls[0][0].data).toBe(data);
+			setTimeout(() => {
+				expect(dispatch).toHaveBeenCalled();
+				expect(dispatch.mock.calls[0][0].type).toBe(SET_LOADING_CREATE_PRODUCT);
+				expect(dispatch.mock.calls[0][0].loading).toBeTruthy();
+				expect(dispatch.mock.calls[1][0].type).toBe(UPDATE_PRODUCT);
+				expect(dispatch.mock.calls[1][0].data).toMatchObject(data);
+				expect(dispatch.mock.calls[2][0].type).toBe(SET_LOADING_CREATE_PRODUCT);
+				expect(dispatch.mock.calls[2][0].loading).toBeFalsy();
+				done()
+			}, 2200)
 		})
 
-		it('redirects to home page', () => {
-			updateProductForm('1', {})(dispatch, undefined, deps);
+		it('update a product with errors', done => {
+			const data = {name: 'iphone', categories: []};
+			updateProductForm('1', data)(dispatch, undefined, deps);
+			setTimeout(() => {
+				expect(dispatch).toHaveBeenCalled();
+				expect(dispatch.mock.calls[0][0].type).toBe(SET_LOADING_CREATE_PRODUCT);
+				expect(dispatch.mock.calls[0][0].loading).toBeTruthy();
+				expect(dispatch.mock.calls[1][0].type).toBe(SET_LOADING_CREATE_PRODUCT);
+				expect(dispatch.mock.calls[1][0].loading).toBeFalsy();
+				done()
+			}, 2200)
+		})
 
-			expect(history.push).toHaveBeenCalled();
-			expect(history.push.mock.calls[0][0]).toBe('/');
+		it('redirects to home page', done => {
+			updateProductForm('1', {name: 'iphone', categories: ['phone']})(dispatch, undefined, deps);
+			setTimeout(() => {
+				expect(history.push).toHaveBeenCalled();
+				expect(history.push.mock.calls[0][0]).toBe('/');
+				done()
+			}, 2200)
 		})
 	})
 
@@ -37,7 +58,8 @@ describe('products', () => {
 		it('create a product without errors', done => {
 			const data = {name: 'iphone', categories: ['phone']};
 			createProductForm(data)(dispatch, undefined, deps);
-			setTimeout(() => {expect(dispatch).toHaveBeenCalled();
+			setTimeout(() => {
+				expect(dispatch).toHaveBeenCalled();
 				expect(dispatch.mock.calls[0][0].type).toBe(SET_LOADING_CREATE_PRODUCT);
 				expect(dispatch.mock.calls[0][0].loading).toBeTruthy();
 				expect(dispatch.mock.calls[1][0].type).toBe(CREATE_PRODUCT);
@@ -51,7 +73,8 @@ describe('products', () => {
 		it('create a product with errors', done => {
 			const data = {name: 'iphone', categories: []};
 			createProductForm(data)(dispatch, undefined, deps);
-			setTimeout(() => {expect(dispatch).toHaveBeenCalled();
+			setTimeout(() => {
+				expect(dispatch).toHaveBeenCalled();
 				expect(dispatch.mock.calls[0][0].type).toBe(SET_LOADING_CREATE_PRODUCT);
 				expect(dispatch.mock.calls[0][0].loading).toBeTruthy();
 				expect(dispatch.mock.calls[1][0].type).toBe(SET_LOADING_CREATE_PRODUCT);

@@ -17,11 +17,14 @@ export const deleteProduct = (id) => ({
   productId: id,
 });
 
-export const updateProduct = (id, data) => ({
-  type: UPDATE_PRODUCT,
-  productId: id,
-  data,
-});
+export const updateProduct = (id, data) => {
+  console.log('id', id)
+  return {
+    type: UPDATE_PRODUCT,
+    productId: id,
+    data,
+  }
+};
 
 export const createProduct = (data) => ({
   type: CREATE_PRODUCT,
@@ -45,8 +48,23 @@ export const fetchProducts = () => dispatch => {
 };
 
 export const updateProductForm = (id, data) => (dispatch, getState, {history}) => {
-  dispatch(updateProduct(id, data));
-  history.push('/');
+  dispatch(setLoadingCreateProduct(true))
+  Promise.resolve().then(() => {
+        if(isEmpty(data.name) || isEmpty(data.categories)){
+          throw new Error('Required fields must be filled in!');
+        } else {
+          setTimeout(() => {
+            dispatch(updateProduct(id, data));
+            dispatch(setLoadingCreateProduct(false))
+            history.push('/');
+          }, 2000)
+        }
+      }
+  ).catch(error => {
+    alert(error);
+    dispatch(setLoadingCreateProduct(false));
+  })
+
 }
 
 export const createProductForm = (data) => (dispatch, getState, {history}) => {
