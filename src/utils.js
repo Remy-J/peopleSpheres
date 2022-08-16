@@ -19,5 +19,5 @@ export function timestampToDays(ms) {
 }
 
 export function generateId() {
-    return Date.now().toString(10);
+    return parseFloat(Date.now().toString(10));
 }
