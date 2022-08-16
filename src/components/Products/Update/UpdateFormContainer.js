@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {getProductById} from '../../../reducers/products';
 import ProductForm from './ProductForm';
 import {Link} from 'react-router-dom';
-import {createProductForm, updateProduct, updateProductForm} from '../../../actions/products';
+import {updateProductForm} from '../../../actions/products';
 
 class UpdateFormContainer extends Component {
     render() {

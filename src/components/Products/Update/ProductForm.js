@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Button, Form, FormFeedback, FormGroup, Input, Label} from 'reactstrap';
 import {getMultiSelected, repeat} from '../../../utils';
-import {isCategoriesValid, isNameValid} from './validators';
+import {isCategoriesValid, isExpirationDateValid, isNameValid} from './validators';
 
 const ProductForm = (props) => {
     const {product = {}} = props;
@@ -102,6 +102,7 @@ const ProductForm = (props) => {
             <FormGroup>
                 <Label for="expirationDate">Expiration date</Label>
                 <Input
+                    invalid={!isExpirationDateValid(receiptDate, expirationDate)}
                     type="date"
                     name="expirationDate"
                     id="expirationDate"

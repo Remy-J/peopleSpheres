@@ -1,5 +1,5 @@
-import isEmpty from 'lodash/isEmpty';
 import { productApi } from '../gateways/ProductApi';
+import {isCategoriesValid, isExpirationDateValid, isNameValid} from "../components/Products/Update/validators";
 
 export const REQUEST_PRODUCTS = 'REQUEST_PRODUCTS';
 export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
@@ -17,14 +17,11 @@ export const deleteProduct = (id) => ({
   productId: id,
 });
 
-export const updateProduct = (id, data) => {
-  console.log('id', id)
-  return {
+export const updateProduct = (id, data) => ({
     type: UPDATE_PRODUCT,
     productId: id,
     data,
-  }
-};
+  });
 
 export const createProduct = (data) => ({
   type: CREATE_PRODUCT,
@@ -50,8 +47,8 @@ export const fetchProducts = () => dispatch => {
 export const updateProductForm = (id, data) => (dispatch, getState, {history}) => {
   dispatch(setLoadingCreateProduct(true))
   Promise.resolve().then(() => {
-        if(isEmpty(data.name) || isEmpty(data.categories)){
-          throw new Error('Required fields must be filled in!');
+        if(!isNameValid(data.name) || !isCategoriesValid(data.categories) || !isExpirationDateValid(data.minExpirationDate, data.expirationDate)){
+          throw new Error('Thank you for correcting the fields in error.');
         } else {
           setTimeout(() => {
             dispatch(updateProduct(id, data));
@@ -70,8 +67,8 @@ export const updateProductForm = (id, data) => (dispatch, getState, {history}) =
 export const createProductForm = (data) => (dispatch, getState, {history}) => {
   dispatch(setLoadingCreateProduct(true))
    Promise.resolve().then(() => {
-        if(isEmpty(data.name) || isEmpty(data.categories)){
-          throw new Error('Required fields must be filled in!');
+        if(!isNameValid(data.name) || !isCategoriesValid(data.categories) || !isExpirationDateValid(data.minExpirationDate, data.receiptDate)){
+          throw new Error('Thank you for correcting the fields in error.');
         } else {
           setTimeout(() => {
             dispatch(createProduct(data))
