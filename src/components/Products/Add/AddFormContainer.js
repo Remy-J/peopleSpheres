@@ -23,6 +23,8 @@ class AddFormContainer extends Component {
 
 AddFormContainer.propTypes = {
     categories: PropTypes.array,
+    onSave: PropTypes.func,
+    isLoading: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {
