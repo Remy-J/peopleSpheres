@@ -29,6 +29,13 @@ const ProductForm = (props) => {
         });
     }
 
+    const onChangeRating = (ratingValue) => {
+        setRating(ratingValue)
+        if(ratingValue > 8){
+            setFeatured(true)
+        }
+    }
+
     return (
         <Form onSubmit={onSubmit}>
             <FormGroup>
@@ -62,7 +69,7 @@ const ProductForm = (props) => {
                     name="rating"
                     id="rating"
                     value={rating}
-                    onChange={({target}) => setRating(target.value)}
+                    onChange={({target}) => onChangeRating(target.value)}
                 >
                     {repeat(11).map((v) => (
                         <option key={v} value={v}>{v}</option>
