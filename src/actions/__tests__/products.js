@@ -60,11 +60,13 @@ describe('products', () => {
 			}, 2200)
 		})
 
-		it('redirects to home page', () => {
-			createProductForm({})(dispatch, undefined, deps);
-
-			expect(history.push).toHaveBeenCalled();
-			expect(history.push.mock.calls[0][0]).toBe('/');
+		it('redirects to home page', done => {
+			createProductForm( {name: 'iphone', categories: ['phone']})(dispatch, undefined, deps);
+			setTimeout(() => {
+				expect(history.push).toHaveBeenCalled();
+				expect(history.push.mock.calls[0][0]).toBe('/');
+				done()
+			}, 2200)
 		})
 	})
 });

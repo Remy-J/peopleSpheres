@@ -63,7 +63,7 @@ export const createProductForm = (data) => (dispatch, getState, {history}) => {
         }
    }
   ).catch(error => {
-    console.log(error);
+    alert(error);
     dispatch(setLoadingCreateProduct(false));
   })
 }
