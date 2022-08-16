@@ -95,7 +95,7 @@ const ProductForm = (props) => {
             </FormGroup>
             <FormGroup>
                 <Label for="itemsInStock">Items In Stock</Label>
-                <Input type="number" name="itemsInStock" id="itemsInStock" value={itemsInStock}
+                <Input type="number" name="itemsInStock" id="itemsInStock" value={itemsInStock} min={0}
                        onChange={({target}) => setItemsInStock(target.value)}
                 />
             </FormGroup>
