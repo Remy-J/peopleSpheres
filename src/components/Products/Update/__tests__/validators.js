@@ -1,5 +1,6 @@
 import {isNameValid, isCategoriesValid, isExpirationDateValid} from '../validators'
 import {categoryApi} from "../../../../gateways/CategoryApi";
+
 describe('validators', () => {
 	it('isNameValid', () => {
 		expect(isNameValid('')).toBeFalsy();

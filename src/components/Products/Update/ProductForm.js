@@ -41,6 +41,7 @@ const ProductForm = (props) => {
             <FormGroup>
                 <Label for='name'>Name</Label>
                 <Input
+                    data-testid='name'
                     invalid={!isNameValid(name)}
                     type='text'
                     name='name'
@@ -55,6 +56,7 @@ const ProductForm = (props) => {
                 <Label for='brand'>Brand</Label>
                 <Input
                     type='text'
+                    data-testid='brand'
                     name='brand'
                     id='brand'
                     placeholder='Brand'
@@ -66,6 +68,7 @@ const ProductForm = (props) => {
                 <Label for="rating">Rating</Label>
                 <Input
                     type="select"
+                    data-testid='rating'
                     name="rating"
                     id="rating"
                     value={rating}
@@ -80,6 +83,7 @@ const ProductForm = (props) => {
                 <Label for="categories">Categories</Label>
                 <Input
                     invalid={!isCategoriesValid(categories)}
+                    data-testid='categories'
                     type="select"
                     name="categories"
                     id="categories"
@@ -95,7 +99,7 @@ const ProductForm = (props) => {
             </FormGroup>
             <FormGroup>
                 <Label for="itemsInStock">Items In Stock</Label>
-                <Input type="number" name="itemsInStock" id="itemsInStock" value={itemsInStock} min={0}
+                <Input type="number"  data-testid='itemsInStock' name="itemsInStock" id="itemsInStock" value={itemsInStock} min={0}
                        onChange={({target}) => setItemsInStock(target.value)}
                 />
             </FormGroup>
@@ -104,6 +108,7 @@ const ProductForm = (props) => {
                 <Input
                     invalid={!isExpirationDateValid(receiptDate, expirationDate)}
                     type="date"
+                    data-testid='expirationDate'
                     name="expirationDate"
                     id="expirationDate"
                     value={expirationDate}
@@ -114,19 +119,19 @@ const ProductForm = (props) => {
             </FormGroup>
             <FormGroup>
                 <Label for="receiptDate">Receipt date</Label>
-                <Input type="date" name="receiptDate" id="receiptDate" value={receiptDate}
+                <Input type="date" name="receiptDate" data-testid='receiptDate' id="receiptDate" value={receiptDate}
                        onChange={({target}) => setReceiptDate(target.value)}
                 />
             </FormGroup>
             <FormGroup check>
                 <Label check>
-                    <Input type="checkbox" checked={featured}
+                    <Input type="checkbox" data-testid='featured' checked={featured}
                            onChange={({target}) => setFeatured(target.checked)}
                     />{' '}
                     Featured
                 </Label>
             </FormGroup>
-            <Button>{!props.isLoading ? 'Submit' : 'Loading...'}</Button>
+            <Button data-testid='submitButton'>{!props.isLoading ? 'Submit' : 'Loading...'}</Button>
         </Form>
     );
 }
